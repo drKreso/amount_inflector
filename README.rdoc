@@ -3,31 +3,42 @@ This is one of those things that are kinda cool but it never seems to be enough 
 
 In English it is quite simple:
 
+```
 1 week
 2 weeks...
 2002020 weeks
+```
 
 In some other language it is not as simple, for example "week" in Croatian:
 
+```
 1 tjedan
 2 tjedna
 3 tjedna 
 4 tjedna
 5 tjedana....
+```
 
 == Usage
 
 Put in your GemFile:
 
+```
 gem 'amount_inflector'
+```
 
+And then:
+
+```
 bundle
 
 rails g amount_inflector:install
+```
 
 == Tweaking
 As for now only Croatina year/month/week/day is supported(config/locales/amount_inflections.yml)
 
+```
 godina: 
   default:  godina
   2:        godine
@@ -60,6 +71,7 @@ dan:
   default: dana 
   1:       dan
   11:      dana
+```
 
 If you have 2011 months for example (mjesec) the alhorithm is:
 
