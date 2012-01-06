@@ -14,18 +14,18 @@ Gem::Specification.new do |s|
   s.email = "kresimir.bojcic@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     ".document",
     ".rspec",
     "Gemfile",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION",
     "amount_inflector.gemspec",
-    "config/locales/amount_inflections.yml",
+    "app/config/locales/amount_inflections.yml",
     "lib/amount_inflector.rb",
     "lib/amount_inflector/amount_inflector.rb",
     "lib/generators/amount_inflector/USAGE",
