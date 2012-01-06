@@ -37,9 +37,9 @@ bundle
 rails g amount_inflector:install
 ```
 
-In your view:
+In your code
 ```
-  = AmountInflector.new(77, :godina) #=> 77 godina
+  AmountInflector.new(77, :godina).to_s #=> 77 godina
 ```
 
 Tweaking
