@@ -1,7 +1,7 @@
 require 'yaml'
 
 class AmountInflector
-  INFLECTIONS_CONFIG = 'config/locales/amount_inflections.yml'
+  INFLECTIONS_CONFIG = 'app/config/locales/amount_inflections.yml'
 
   def initialize(amount, unit, inflections=nil)
     @amount = amount

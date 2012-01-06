@@ -1,6 +1,6 @@
 Amount Inflector
 ================
-This is one of those things that are kinda cool but it never seems to be enough time to implement it. The basic idea is engine that will enable you to have amouts of certain units "humanized" in your native language.
+This is one of those things that are kinda cool but it never seems to be enough time to implement it. The basic idea is engine that will enable you to have amounts of certain units "humanized" in your native language.
 
 In English it is quite simple:
 
@@ -39,7 +39,7 @@ rails g amount_inflector:install
 
 Tweaking
 -----------
-As for now only Croatina year/month/week/day is supported(config/locales/amount_inflections.yml)
+As for now only Croatian year/month/week/day is supported(config/locales/amount_inflections.yml)
 
 ```
 godina: 
@@ -76,14 +76,14 @@ dan:
   11:      dana
 ```
 
-If you have 2011 months for example (mjesec) the alhorithm is:
+If you have 2011 months for example (mjesec) the algorithm is:
 
 * Check for 2011 in inflections
 * Check for 011 in inflections
 * Check for 11 in inflections => match it is "2011 mjeseci"
 
 
-If you have 77 years for example (godina) the alhorithm is:
+If you have 77 years for example (godina) the algorithm is:
 
 * Check for 77 in inflections
 * Check for 7 in inflections
@@ -91,7 +91,7 @@ If you have 77 years for example (godina) the alhorithm is:
 
 Is It For Me?
 --------------
-I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exeptions but not that many amount_inflector is a right way to go.
+I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exceptions but not that many amount_inflector is a right way to go.
 
 Contributing to amount_inflector
 ---------------------------------
