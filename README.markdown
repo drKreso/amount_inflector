@@ -38,7 +38,7 @@ rails g amount_inflector:install
 ```
 
 In your view:
-```ruby
+```
   = AmountInflector.new(77, :godina) #=> 77 godina
 ```
 
