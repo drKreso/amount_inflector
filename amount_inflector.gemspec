@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "amount_inflector"
-  s.version = ""
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kresimir Bojcic"]
@@ -15,6 +15,23 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
+  ]
+  s.files = [
+    ".document",
+    ".rspec",
+    "Gemfile",
+    "LICENSE.txt",
+    "README.rdoc",
+    "Rakefile",
+    "VERSION",
+    "amount_inflector.gemspec",
+    "config/locales/amount_inflections.yml",
+    "lib/amount_inflector.rb",
+    "lib/amount_inflector/amount_inflector.rb",
+    "lib/generators/amount_inflector/USAGE",
+    "lib/generators/amount_inflector/install_generator.rb",
+    "lib/generators/amount_inflector/templates/amount_inflections.yml",
+    "spec/amount_inflector_spec.rb"
   ]
   s.homepage = "http://github.com/drKreso/amount_inflector"
   s.licenses = ["MIT"]
