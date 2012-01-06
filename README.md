@@ -1,4 +1,5 @@
-= Amount Inflector
+Amount Inflector
+================
 This is one of those things that are kinda cool but it never seems to be enough time to implement it. The basic idea is engine that will enable you to have amouts of certain units "humanized" in your native language.
 
 In English it is quite simple:
@@ -19,7 +20,8 @@ In some other language it is not as simple, for example "week" in Croatian:
 5 tjedana....
 ```
 
-== Usage
+Usage
+----------
 
 Put in your GemFile:
 
@@ -35,7 +37,8 @@ bundle
 rails g amount_inflector:install
 ```
 
-== Tweaking
+Tweaking
+-----------
 As for now only Croatina year/month/week/day is supported(config/locales/amount_inflections.yml)
 
 ```
@@ -86,10 +89,12 @@ If you have 77 years for example (godina) the alhorithm is:
 * Check for 7 in inflections
 * Check for :default in inflections => match it is "7 godina"
 
-== Is It For Me?
+Is It For Me?
+--------------
 I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exeptions but not that many amount_inflector is a right way to go.
 
-== Contributing to amount_inflector
+Contributing to amount_inflector
+---------------------------------
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -99,7 +104,8 @@ I have a suspicion that Croatian model might work quite well for some other lang
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+Copyright
+-----------
 
 Copyright (c) 2012 Kresimir Bojcic. See LICENSE.txt for
 further details.
