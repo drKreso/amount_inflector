@@ -37,6 +37,11 @@ bundle
 rails g amount_inflector:install
 ```
 
+In your view:
+```ruby
+  = AmountInflector.new(77, :godina) #=> 77 godina
+```
+
 Tweaking
 -----------
 As for now only Croatian year/month/week/day is supported(config/locales/amount_inflections.yml)
@@ -91,7 +96,7 @@ If you have 77 years for example (godina) the algorithm is:
 
 Is It For Me?
 --------------
-I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exceptions but not that many amount_inflector is a right way to go.
+I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exceptions but not that many and if they tend to depend on "trailing digits" then amount_inflector is a right way to go.
 
 Contributing to amount_inflector
 ---------------------------------
