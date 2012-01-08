@@ -46,6 +46,7 @@ Is It For Me?
 This is basically reimplementation of stuff I18n provides with :one, :few and :many
 
 [Example for Polish](http://dev.netizer.pl/rails-i18n-and-zero-one-two-few-many-other.html)
+
 ```ruby
 # config/locales/pluralization.rb
 I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
