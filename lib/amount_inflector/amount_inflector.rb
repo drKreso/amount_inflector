@@ -1,6 +1,6 @@
 class AmountInflector
 
-  AMOUNT_CONFIG = {
+  CONFIG = {
      :godina => { one:"godina", few:"godine",  many:"godina" },
      :mjesec => { one:"mjesec", few:"mjeseca", many:"mjeseci" },
      :tjedan => { one:"tjedan", few:"tjedna",  many:"tjedana" },
@@ -8,9 +8,8 @@ class AmountInflector
   }
 
   def self.inflect(amount, unit)
-    unit_inflections = AMOUNT_CONFIG[unit]
-    raise "Inflection :#{unit} is unsupported" if unit_inflections.nil?
-    "#{amount} #{unit_inflections[pluralize_rule(amount)]}"
+    raise "Inflection :#{unit} is unsupported" if CONFIG[unit].nil?
+    "#{amount} #{CONFIG[unit][pluralize_rule(amount)]}"
   end
 
   def self.pluralize_rule(n)
