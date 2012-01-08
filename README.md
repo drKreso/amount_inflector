@@ -1,8 +1,8 @@
 Amount Inflector
 ================
-This is one of those things that are kinda cool but it never seems to be enough time to implement it. The basic idea is engine that will enable you to have amounts of certain units "humanized" in your native language.
+Small gem for pluralizing year/month/week/day words in Croatian. 
 
-In English it is quite simple:
+In English it is straightforward:
 
 ```
 1 week
@@ -19,6 +19,8 @@ In some other language it is not as simple, for example "week" in Croatian:
 4 tjedna
 5 tjedana....
 ```
+
+It turns out in Croatian it is dependable on trailing digits, and rather simple (3 lines rule).
 
 Usage
 ----------
