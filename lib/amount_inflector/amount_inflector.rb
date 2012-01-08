@@ -15,7 +15,7 @@ class AmountInflector
   def self.pluralize_rule(n)
     return :many if (11..14).include?(n % 100)
     return :few if (2..4).include?(n % 10)
-    (n % 10) == 1 ? :one : :many
+    (n % 10 == 1) ? :one : :many
   end
 
 end
