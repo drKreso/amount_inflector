@@ -87,7 +87,7 @@ describe AmountInflector do
   end
 
   it 'should raise for unknows inflection 1 danas' do
-#    ->{ trajanje = AmountInflector.new(1, :danas) }.should raise_error 'Inflection :danas is unsupported'
+    ->{ trajanje = AmountInflector.inflect(1, :danas) }.should raise_error 'Inflection :danas is unsupported'
   end
 
 end
