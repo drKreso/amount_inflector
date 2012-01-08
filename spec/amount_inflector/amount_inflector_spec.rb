@@ -1,4 +1,4 @@
-require_relative '../lib/amount_inflector.rb'
+require 'amount_inflector.rb'
 
 describe AmountInflector do
 
