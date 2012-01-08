@@ -6,6 +6,10 @@ describe AmountInflector do
     AmountInflector.inflect(1, :godina).should == "1 godina"
   end
 
+  it 'should say 1 godina when given string' do
+    AmountInflector.inflect(1, "godina").should == "1 godina"
+  end
+
   it 'should say 2 godine' do
     AmountInflector.inflect(2, :godina).should == "2 godine"
   end

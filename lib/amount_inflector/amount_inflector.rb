@@ -8,6 +8,7 @@ class AmountInflector
   }
 
   def self.inflect(amount, unit)
+    unit = unit.to_s.to_sym 
     raise "Inflection :#{unit} is unsupported" if CONFIG[unit].nil?
     "#{amount} #{CONFIG[unit][pluralize_form(amount)]}"
   end
