@@ -58,6 +58,10 @@ I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
 Only usage would be if you prefer not to use the whole I18n machinery for this simple task.
 </blockquote>
 
+Tweaking
+----------
+Everything is in a sigle file (pluralization rules and translations) in lib/amount_inflector/amount_inflector.rb. That is the whole point, one small file for that.
+
 Contributing to amount_inflector
 ---------------------------------
 
