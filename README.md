@@ -33,71 +33,27 @@ And then:
 
 ```
 bundle
-
-rails g amount_inflector:install
 ```
 
 In your code
 
 ```
-AmountInflector.new(77, :godina).to_s #=> 77 godina
+AmountInflector.inflect(77, :godina).to_s #=> 77 godina
 ```
-
-Tweaking
------------
-As for now only Croatian year/month/week/day is supported(config/locales/amount_inflections.yml)
-
-```
-godina: 
-  default:  godina
-  2:        godine
-  3:        godine
-  4:        godine
-  12:       godina
-  13:       godina
-  14:       godina
-mjesec:
-  default: mjeseci
-  1:       mjesec
-  2:       mjeseca
-  3:       mjeseca
-  4:       mjeseca
-  11:      mjeseci
-  12:      mjeseci
-  13:      mjeseci
-  14:      mjeseci
-tjedan: 
-  default: tjedana
-  1:       tjedan
-  2:       tjedna
-  3:       tjedna
-  4:       tjedna
-  11:      tjedana
-  12:      tjedana
-  13:      tjedana
-  14:      tjedana
-dan: 
-  default: dana 
-  1:       dan
-  11:      dana
-```
-
-If you have 2011 months for example (mjesec) the algorithm is:
-
-* Check for 2011 in inflections
-* Check for 011 in inflections
-* Check for 11 in inflections => match it is "2011 mjeseci"
-
-
-If you have 77 years for example (godina) the algorithm is:
-
-* Check for 77 in inflections
-* Check for 7 in inflections
-* Check for :default in inflections => match it is "7 godina"
 
 Is It For Me?
 --------------
-I have a suspicion that Croatian model might work quite well for some other languages. Anyways if you have some exceptions but not that many and if they tend to depend on "trailing digits" then amount_inflector is a right way to go.
+This is basically reimplementation of stuff I18n provides with :one, :few and :many
+
+[Example for Polish](http://dev.netizer.pl/rails-i18n-and-zero-one-two-few-many-other.html)
+```ruby
+# config/locales/pluralization.rb
+I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
+{
+:pl => {:'i18n.plural.rule' => lambda { |n| n == 1 ? :one : (2..4).include?(n % 10) && !(11..14).include?(n % 100) ? :few : :other }},
+}
+```
+Only usage would be if you prefer not to use the whole I18n machinery for this simple task.
 
 Contributing to amount_inflector
 ---------------------------------
