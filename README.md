@@ -37,7 +37,7 @@ bundle
 
 In your code
 
-```
+```ruby
 AmountInflector.inflect(77, :godina).to_s #=> 77 godina
 ```
 
@@ -51,10 +51,12 @@ This is basically reimplementation of stuff I18n provides with :one, :few and :m
 # config/locales/pluralization.rb
 I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
 {
-:pl => {:'i18n.plural.rule' => lambda { |n| n == 1 ? :one : (2..4).include?(n % 10) && !(11..14).include?(n % 100) ? :few : :other }},
+:pl => {:'i18n.plural.rule' => lambda { |n| n == 1 ? :one : (2..4).include?(n % 10) && !(12..14).include?(n % 100) ? :few : :other }},
 }
 ```
+<blockquote>
 Only usage would be if you prefer not to use the whole I18n machinery for this simple task.
+</blockquote>
 
 Contributing to amount_inflector
 ---------------------------------
