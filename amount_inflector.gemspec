@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "amount_inflector"
-  s.version = "2.0.0"
+  s.version = "2.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kresimir Bojcic"]
-  s.date = "2012-01-08"
+  s.date = "2012-06-09"
   s.description = "Amount Inflector for year/month/week/day (Croatian)"
   s.email = "kresimir.bojcic@gmail.com"
   s.extra_rdoc_files = [
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     "amount_inflector.gemspec",
     "lib/amount_inflector.rb",
     "lib/amount_inflector/amount_inflector.rb",
-    "spec/amount_inflector_spec.rb"
+    "spec/amount_inflector/amount_inflector_spec.rb"
   ]
   s.homepage = "http://github.com/drKreso/amount_inflector"
   s.licenses = ["MIT"]
