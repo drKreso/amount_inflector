@@ -18,6 +18,10 @@ describe AmountInflector do
     AmountInflector.inflect(92, :godina).should == "92 godine"
   end
 
+  it 'should say 93 godine' do
+    AmountInflector.inflect(93, :godina).should == "93 godine"
+  end
+
   it 'should say 12 godina' do
     AmountInflector.inflect(12, :godina).should == "12 godina"
   end
