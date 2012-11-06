@@ -1,4 +1,4 @@
-require 'amount_inflector.rb'
+require 'amount_inflector/amount_inflector.rb'
 
 describe AmountInflector do
 

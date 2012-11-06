@@ -1,6 +1,6 @@
 Amount Inflector
 ================
-Small gem for pluralizing year/month/week/day words in Croatian. 
+Small gem for pluralizing year/month/week/day words in Croatian.
 
 In English it is straightforward:
 
@@ -15,10 +15,16 @@ In some other language it is not as simple, for example "week" in Croatian:
 ```
 1 tjedan
 2 tjedna
-3 tjedna 
+3 tjedna
 4 tjedna
 5 tjedana....
 ```
+
+Also there is a method for converting number to words (for currency)
+```
+121.50.to_kune #=> stodvadesetjednu kunu i pedesettri lipe
+```
+
 
 It turns out in Croatian it is dependable on trailing digits, and rather simple (3 lines rule).
 
