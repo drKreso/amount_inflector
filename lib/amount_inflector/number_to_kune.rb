@@ -6,7 +6,7 @@ class NumberToKune
     NumberToKune.new.convert(amount)
   end
 
-  #treba se 'rimovati' na kunu
+  #needs to 'rhime' on "kuna"
   WORDS = {
     "0" => "nula",
     "1" => "jedna",
