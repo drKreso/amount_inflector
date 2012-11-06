@@ -71,39 +71,34 @@ class NumberToKune
 
   private
 
-  def translate_to_words(kune, in_words, jedinica = nil)
-    return in_words if kune.nil? || kune.size == 0 ||  kune.gsub("0","").size == 0
+  def translate_to_words(amount, in_words, unit = nil)
+    return in_words if amount.nil? || amount.size == 0 ||  amount.gsub("0","").size == 0
 
-    kune = kune.to_i.to_s
-    if kune.to_i < 1000
-      if kune.to_i < 1_000
-        if as_word(kune, jedinica) != nil
-          in_words += as_word(kune, jedinica)
-          decoded = kune.size
+    amount = amount.to_i.to_s
+    if amount.to_i < 1000
+      if amount.to_i < 1_000
+        if as_word(amount, unit) != nil
+          in_words += as_word(amount, unit)
+          decoded = amount.size
         else
-          in_words += as_word(kune[0] +  "0" * (kune.size - 1), jedinica)
+          in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
           decoded = 1
         end
-        translate_to_words(take_off(kune, decoded), in_words, jedinica)
+        translate_to_words(take_off(amount, decoded), in_words, unit)
       end
-    elsif kune.to_i < 1_000_000
-      decompose(kune, :tisuca, in_words)
-    elsif kune.to_i < 1_000_000_000
-      decompose(kune, :milijun, in_words)
-    elsif kune.to_i < 1_000_000_000_000
-      decompose(kune, :milijarda, in_words)
+    elsif amount.to_i < 1_000_000
+      decompose(amount, :tisuca, in_words)
+    elsif amount.to_i < 1_000_000_000
+      decompose(amount, :milijun, in_words)
+    elsif amount.to_i < 1_000_000_000_000
+      decompose(amount, :milijarda, in_words)
     else
-      raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{kune}"
+      raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}"
     end
   end
 
-  def as_word(kune, jedinica = nil)
-    unless jedinica.nil?
-      unless WORDS["#{kune}_#{jedinica}"].nil?
-        return WORDS["#{kune}_#{jedinica}"]
-      end
-    end
-    WORDS[kune]
+  def as_word(amount, unit = nil)
+    (!unit.nil? &&  !WORDS["#{amount}_#{unit}"].nil?) ?  WORDS["#{amount}_#{unit}"] : WORDS[amount]
   end
 
   def take_off(source, number_to_take_off = 1)
@@ -112,10 +107,10 @@ class NumberToKune
     result.reverse
   end
 
-  def decompose(kune, jedinica, in_words)
-    bez = (kune.to_i / KOEFS.fetch(jedinica)).to_s
-    in_words += translate_to_words(bez.to_s, '', jedinica) unless bez == "1"
-    in_words += AmountInflector.inflect_unit(bez.to_i, jedinica)
-    translate_to_words(kune[bez.size..kune.size - 1], in_words, jedinica)
+  def decompose(amount, unit, in_words)
+    bez = (amount.to_i / KOEFS.fetch(unit)).to_s
+    in_words += translate_to_words(bez.to_s, '', unit) unless bez == "1"
+    in_words += AmountInflector.inflect_unit(bez.to_i, unit)
+    translate_to_words(amount[bez.size..amount.size - 1], in_words, unit)
   end
 end
