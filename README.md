@@ -1,35 +1,15 @@
 Amount Inflector
 ================
-Small gem for
+[![Build Status](https://travis-ci.org/drKreso/amount_inflector.png)](https://travis-ci.org/drKreso/amount_inflector)
 
-1. pluralizing year/month/week/day words in Croatia
-2. converting number amounts to words in HRK currency
+This gem can be used for:
 
-In English it is straightforward:
+1. converting number amounts to words in HRK currency
+2. pluralizing year/month/week/day and other words in Croatian that depend on :one, :few, :many rule
 
-```
-1 week
-2 weeks...
-2002020 weeks
-```
-
-In some other language it is not as simple, for example "week" in Croatian:
-
-```
-1 tjedan
-2 tjedna
-3 tjedna
-4 tjedna
-5 tjedana....
-```
-
-It turns out in Croatian it is dependable on trailing digits, and rather simple (3 lines rule).
-
-Converting currency to words (HRK)
------------------------------
-There is a method for converting number to words (for currency)
-```
-NumberToKune.convert(97_543.21) #=> "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
+```ruby
+AmountInflector.inflect(77, :godina).to_s #=> 77 godina
+NumberToKune.convert(97_543.21) #=> "devedesetsedamtisućapetstočetrdesettri kune i dvadesetjedna lipa"
 ```
 
 Usage
@@ -46,33 +26,6 @@ And then:
 ```
 bundle
 ```
-
-In your code
-
-```ruby
-AmountInflector.inflect(77, :godina).to_s #=> 77 godina
-```
-
-Is It For Me?
---------------
-This is basically reimplementation of stuff I18n provides with :one, :few and :many
-
-[Example for Polish](http://dev.netizer.pl/rails-i18n-and-zero-one-two-few-many-other.html)
-
-```ruby
-# config/locales/pluralization.rb
-I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
-{
-:pl => {:'i18n.plural.rule' => lambda { |n| n == 1 ? :one : (2..4).include?(n % 10) && !(12..14).include?(n % 100) ? :few : :other }},
-}
-```
-<blockquote>
-Only usage would be if you prefer not to use the whole I18n machinery for this simple task.
-</blockquote>
-
-Tweaking
-----------
-Everything is in a sigle file (pluralization rules and translations) in lib/amount_inflector/amount_inflector.rb. That is the whole point, one small file for that.
 
 Contributing to amount_inflector
 ---------------------------------

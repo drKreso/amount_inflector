@@ -36,7 +36,7 @@ describe NumberToKune do
     NumberToKune.convert(22).should == "dvadesetdvije kune i nula lipa"
     NumberToKune.convert(22_000_000).should == "dvadesetdvamilijuna kuna i nula lipa"
     NumberToKune.convert(0.00).should == "nula kuna i nula lipa"
-    NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
+    NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadesetjedna lipa"
   end
 
 end
