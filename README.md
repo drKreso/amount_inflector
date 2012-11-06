@@ -1,6 +1,6 @@
 Amount Inflector
 ================
-Small gem for pluralizing year/month/week/day words in Croatian.
+Small gem for pluralizing year/month/week/day words in Croatia and also converting numeber amount to words in HRK currecy.
 
 In English it is straightforward:
 
@@ -20,11 +20,11 @@ In some other language it is not as simple, for example "week" in Croatian:
 5 tjedana....
 ```
 
-Converting currecncy to words (HRK)
+Converting currency to words (HRK)
 -----------------------------
 There is a method for converting number to words (for currency)
 ```
-NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
+NumberToKune.convert(97_543.21) #=> "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
 ```
 
 
