@@ -20,9 +20,11 @@ In some other language it is not as simple, for example "week" in Croatian:
 5 tjedana....
 ```
 
-Also there is a method for converting number to words (for currency)
+Converting currecncy to words (HRK)
+-----------------------------
+There is a method for converting number to words (for currency)
 ```
-121.50.to_kune #=> stodvadesetjednu kunu i pedesettri lipe
+NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
 ```
 
 
