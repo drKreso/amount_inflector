@@ -9,7 +9,7 @@ class NumberToKune
                    "jedanaest", "dvanaest", "trinaest", "četrnaest", "petnaest", "šestaest",
                    "sedamnaest",  "osamnaest", "devetnaest", "dvadeset", "dvadesetjedan", "dvadesetdvije"],
 
-    do_dvadeset_tri_tisuca: [ "nula", "jedna", "dvije", "tri", "četiri", "pet", "šest", "sedam", "osam", "devet", "deset",
+    do_dvadeset_tri_tisuca: [ "nula", "jednu", "dvije", "tri", "četiri", "pet", "šest", "sedam", "osam", "devet", "deset",
                    "jedanaest", "dvanaest", "trinaest", "četrnaest", "petnaest", "šestaest",
                    "sedamnaest",  "osamnaest", "devetnaest", "dvadeset", "dvadesetjedna", "dvadesetdvije"],
 
@@ -43,16 +43,16 @@ class NumberToKune
         take = [:do_dvadeset_tri, kune]
       elsif kune.to_i < 100
         take = [:desetice, kune[0]]
-      elsif kune.to_i < 1000
+      elsif kune.to_i < 1_000
         take = [:stotice, kune[0]]
       end
       slovima += as_word(take[0], take[1], jedinica)
       raspisi(take_off(kune, take[1].size), slovima, jedinica)
-    elsif kune.to_i < 1000000
+    elsif kune.to_i < 1_000_000
       razgradi(kune, :tisuca, slovima)
-    elsif kune.to_i < 1000000000
+    elsif kune.to_i < 1_000_000_000
       razgradi(kune, :milijun, slovima)
-    elsif kune.to_i < 1000000000000
+    elsif kune.to_i < 1_000_000_000_000
       razgradi(kune, :milijarda, slovima)
     else
       raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{kune}"
@@ -60,9 +60,7 @@ class NumberToKune
   end
 
   def as_word(word_key, kune, jedinica = nil)
-    if word_key == :do_dvadeset_tri && !jedinica.nil?
-      word_key = word_key.to_s + "_#{jedinica}"
-    end
+    word_key = word_key.to_s + "_#{jedinica}" if word_key == :do_dvadeset_tri && !jedinica.nil?
     WORDS[word_key.to_s.to_sym][kune.to_i]
   end
 
@@ -73,7 +71,7 @@ class NumberToKune
   end
 
   def razgradi(kune, jedinica, slovima)
-    koeficijent = { :tisuca => 1000, :milijun => 1000000, :milijarda => 1000000000 }
+    koeficijent = { :tisuca => 1_000, :milijun => 1_000_000, :milijarda => 1_000_000_000 }
     bez = (kune.to_i / koeficijent.fetch(jedinica)).to_s
     slovima += raspisi(bez.to_s, '', jedinica) unless bez == "1"
     slovima += AmountInflector.inflect_unit(bez.to_i, jedinica)
