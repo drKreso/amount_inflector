@@ -1,6 +1,9 @@
 Amount Inflector
 ================
-Small gem for pluralizing year/month/week/day words in Croatia and also converting numeber amount to words in HRK currecy.
+Small gem for
+
+1. pluralizing year/month/week/day words in Croatia
+2. converting number amounts to words in HRK currecy
 
 In English it is straightforward:
 
