@@ -3,6 +3,7 @@ require 'amount_inflector/number_to_kune.rb'
 
 describe NumberToKune do
   it 'converts to kunas' do
+    NumberToKune.convert(21).should == "dvadesetjedna kuna i nula lipa"
     NumberToKune.convert(100).should == "sto kuna i nula lipa"
     NumberToKune.convert(200).should == "dvjesto kuna i nula lipa"
     NumberToKune.convert(200.26).should == "dvjesto kuna i dvadesetšest lipa"
@@ -33,6 +34,8 @@ describe NumberToKune do
     NumberToKune.convert(926_543_864).should == "devetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
     NumberToKune.convert(19_926_543_864).should == "devetnaestmilijardidevetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
     NumberToKune.convert(121_926_543_864).should == "stodvadesetjednamilijardadevetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
+    NumberToKune.convert(22).should == "dvadesetdvije kune i nula lipa"
+    NumberToKune.convert(22_000_000).should == "dvadesetdvamilijuna kuna i nula lipa"
   end
 
 end
