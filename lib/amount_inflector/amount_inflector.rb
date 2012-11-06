@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 class AmountInflector
   CONFIG = {
      :godina => { one:"godina", few:"godine",  many:"godina" },
@@ -5,7 +7,10 @@ class AmountInflector
      :tjedan => { one:"tjedan", few:"tjedna",  many:"tjedana" },
      :dan =>    { one:"dan",    few:"dana",    many:"dana" },
      :kuna =>   { one:"kuna",   few:"kune",    many:"kuna" },
-     :lipa =>   { one:"lipa",   few:"lipe",    many:"lipa" }
+     :lipa =>   { one:"lipa",   few:"lipe",    many:"lipa" },
+     :tisuca => { one:"tisuću", few:"tisuće",  many:"tisuća" },
+     :milijun => { one:"milijun", few:"milijuna",  many:"milijuna" },
+     :milijarda => { one:"milijarda", few:"milijarde",  many:"milijardi" }
   }
 
   def self.inflect(amount, unit)
