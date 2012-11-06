@@ -20,15 +20,14 @@ In some other language it is not as simple, for example "week" in Croatian:
 5 tjedana....
 ```
 
+It turns out in Croatian it is dependable on trailing digits, and rather simple (3 lines rule).
+
 Converting currency to words (HRK)
 -----------------------------
 There is a method for converting number to words (for currency)
 ```
 NumberToKune.convert(97_543.21) #=> "devedesetsedamtisućapetstočetrdesettri kune i dvadestjedna lipa"
 ```
-
-
-It turns out in Croatian it is dependable on trailing digits, and rather simple (3 lines rule).
 
 Usage
 ----------
