@@ -8,7 +8,6 @@ describe NumberToKune do
     NumberToKune.convert(200).should == "dvjesto kuna i nula lipa"
     NumberToKune.convert(200.26).should == "dvjesto kuna i dvadesetšest lipa"
     NumberToKune.convert(1_200.26).should == "tisućudvjesto kuna i dvadesetšest lipa"
-    NumberToKune.convert(1_200.26).should == "tisućudvjesto kuna i dvadesetšest lipa"
     NumberToKune.convert(10).should == "deset kuna i nula lipa"
     NumberToKune.convert(3).should == "tri kune i nula lipa"
     NumberToKune.convert(18).should == "osamnaest kuna i nula lipa"
@@ -36,6 +35,7 @@ describe NumberToKune do
     NumberToKune.convert(121_926_543_864).should == "stodvadesetjednamilijardadevetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
     NumberToKune.convert(22).should == "dvadesetdvije kune i nula lipa"
     NumberToKune.convert(22_000_000).should == "dvadesetdvamilijuna kuna i nula lipa"
+    NumberToKune.convert(0.00).should == "nula kuna i nula lipa"
   end
 
 end

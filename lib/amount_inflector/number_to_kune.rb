@@ -1,4 +1,6 @@
 #encoding:utf-8
+require 'bigdecimal'
+
 class NumberToKune
   def self.convert(amount)
     NumberToKune.new.convert(amount)
@@ -34,50 +36,68 @@ class NumberToKune
     "21_milijun" => "dvadesetjedan",
     "22" => "dvadesetdvije",
     "22_milijun" => "dvadesetdva",
+    "30" => "trideset",
+    "40" => "četrdeset",
+    "50" => "pedeset",
+    "60" => "šezdeset",
+    "70" => "sedamdeset",
+    "80" => "osamdeset",
+    "90" => "devedeset" ,
+    "100" => "sto",
+    "200" => "dvjesto",
+    "300" => "tristo",
+    "400" => "četiristo",
+    "500" => "petsto",
+    "600" => "šesto",
+    "700" => "sedamsto",
+    "800" => "osamsto",
+    "900" => "devetsto"
+  }
 
-    :desetice =>  [ "", "deset", "dvadeset", "trideset", "četrdeset", "pedeset", "šezdeset",
-                "sedamdeset", "osamdeset", "devedeset" ],
-
-    :stotice =>  [ "", "sto", "dvjesto", "tristo", "četiristo", "petsto", "šesto",
-               "sedamsto", "osamsto", "devetsto" ]
+  KOEFS =
+  {
+    :tisuca => 1_000,
+    :milijun => 1_000_000,
+    :milijarda => 1_000_000_000
   }
 
   def convert(amount)
-    ostatak = (amount - amount.to_i).round(2) * 100
-    result = "#{raspisi(amount.to_i.to_s, '')} #{AmountInflector.inflect_unit(amount.to_i, :kuna)}"
-    result += " i #{raspisi(ostatak.to_s, '')} #{AmountInflector.inflect_unit(ostatak.to_i, :lipa)}"
+    return "nula kuna i nula lipa" if BigDecimal.new(amount.to_s) == BigDecimal.new("0.0")
+
+    after_decimal = (amount - amount.to_i).round(2) * 100
+    result = "#{translate_to_words(amount.to_i.to_s, '')} #{AmountInflector.inflect_unit(amount.to_i, :kuna)}"
+    result += " i #{translate_to_words(after_decimal.to_s, '')} #{AmountInflector.inflect_unit(after_decimal.to_i, :lipa)}"
   end
 
   private
 
-  def raspisi(kune, slovima, jedinica = nil)
-    return slovima if kune.nil? || kune.size == 0 ||  kune.gsub("0","").size == 0
+  def translate_to_words(kune, in_words, jedinica = nil)
+    return in_words if kune.nil? || kune.size == 0 ||  kune.gsub("0","").size == 0
+
     kune = kune.to_i.to_s
     if kune.to_i < 1000
-      if kune.to_i < 23
-        slovima += as_word_under_23(kune, jedinica)
-        raspisi(take_off(kune, kune.size), slovima, jedinica)
-      elsif kune.to_i < 100
-        take = [:desetice, kune[0]]
-        slovima += as_word(take[0], take[1], jedinica)
-        raspisi(take_off(kune, take[1].size), slovima, jedinica)
-      elsif kune.to_i < 1_000
-        take = [:stotice, kune[0]]
-        slovima += as_word(take[0], take[1], jedinica)
-        raspisi(take_off(kune, take[1].size), slovima, jedinica)
+      if kune.to_i < 1_000
+        if as_word(kune, jedinica) != nil
+          in_words += as_word(kune, jedinica)
+          decoded = kune.size
+        else
+          in_words += as_word(kune[0] +  "0" * (kune.size - 1), jedinica)
+          decoded = 1
+        end
+        translate_to_words(take_off(kune, decoded), in_words, jedinica)
       end
     elsif kune.to_i < 1_000_000
-      razgradi(kune, :tisuca, slovima)
+      decompose(kune, :tisuca, in_words)
     elsif kune.to_i < 1_000_000_000
-      razgradi(kune, :milijun, slovima)
+      decompose(kune, :milijun, in_words)
     elsif kune.to_i < 1_000_000_000_000
-      razgradi(kune, :milijarda, slovima)
+      decompose(kune, :milijarda, in_words)
     else
       raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{kune}"
     end
   end
 
-  def as_word_under_23(kune, jedinica = nil)
+  def as_word(kune, jedinica = nil)
     unless jedinica.nil?
       unless WORDS["#{kune}_#{jedinica}"].nil?
         return WORDS["#{kune}_#{jedinica}"]
@@ -86,22 +106,16 @@ class NumberToKune
     WORDS[kune]
   end
 
-  def as_word(word_key, kune, jedinica = nil)
-    word_key = word_key.to_s + "_#{jedinica}" if word_key == :do_dvadeset_tri && !jedinica.nil?
-    WORDS[word_key.to_s.to_sym][kune.to_i]
-  end
-
   def take_off(source, number_to_take_off = 1)
     result = source.reverse
     (0...number_to_take_off).each { result.chop! }
     result.reverse
   end
 
-  def razgradi(kune, jedinica, slovima)
-    koeficijent = { :tisuca => 1_000, :milijun => 1_000_000, :milijarda => 1_000_000_000 }
-    bez = (kune.to_i / koeficijent.fetch(jedinica)).to_s
-    slovima += raspisi(bez.to_s, '', jedinica) unless bez == "1"
-    slovima += AmountInflector.inflect_unit(bez.to_i, jedinica)
-    raspisi(kune[bez.size..kune.size - 1], slovima, jedinica)
+  def decompose(kune, jedinica, in_words)
+    bez = (kune.to_i / KOEFS.fetch(jedinica)).to_s
+    in_words += translate_to_words(bez.to_s, '', jedinica) unless bez == "1"
+    in_words += AmountInflector.inflect_unit(bez.to_i, jedinica)
+    translate_to_words(kune[bez.size..kune.size - 1], in_words, jedinica)
   end
 end
