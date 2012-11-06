@@ -8,8 +8,8 @@ This gem can be used for:
 2. pluralizing year/month/week/day and other words in Croatian that depend on :one, :few, :many rule
 
 ```ruby
-AmountInflector.inflect(77, :godina).to_s #=> 77 godina
 NumberToKune.convert(97_543.21) #=> "devedesetsedamtisućapetstočetrdesettri kune i dvadesetjedna lipa"
+AmountInflector.inflect(77, :godina).to_s #=> 77 godina
 ```
 
 Usage
