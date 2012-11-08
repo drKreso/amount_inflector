@@ -67,12 +67,12 @@ class NumberToKune
 
   def translate_to_words(amount, in_words, unit = nil)
     return in_words if amount.nil? || amount.size == 0 || amount.gsub("0","").size == 0
+    return '' if amount == "1" && !unit.nil?
     raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}" if amount.to_i >= 1_000_000_000_000
 
     amount = amount.to_i.to_s
     if amount.to_i >= 1000
-      unit = KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key }.reverse[0]
-      decompose(amount, unit, in_words)
+      decompose(amount, in_words)
     else
       in_words += replaced_word(amount, unit)
       translate_to_words(remove_first_n(amount, replaced_size(amount, unit)), in_words, unit)
@@ -99,10 +99,14 @@ class NumberToKune
     source[n..-1]
   end
 
-  def decompose(amount, unit, in_words)
+  def amount_unit(amount)
+    KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key }.reverse[0]
+  end
+
+  def decompose(amount, in_words)
+    unit = amount_unit(amount)
     without_unit = (amount.to_i / KOEFS.fetch(unit)).to_s
-    in_words += translate_to_words(without_unit.to_s, '', unit) unless without_unit == "1"
-    in_words += AmountInflector.inflect_unit(without_unit.to_i, unit)
+    in_words += translate_to_words(without_unit.to_s, '', unit) + AmountInflector.inflect_unit(without_unit.to_i, unit)
     translate_to_words(remove_first_n(amount, without_unit.size), in_words, unit)
   end
 end
