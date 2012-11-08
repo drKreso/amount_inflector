@@ -2,17 +2,22 @@
 require 'amount_inflector/number_to_kune.rb'
 
 describe NumberToKune do
-  it 'converts to kunas' do
+  it 'converts to kunas under 1000' do
     NumberToKune.convert(21).should == "dvadesetjedna kuna i nula lipa"
     NumberToKune.convert(100).should == "sto kuna i nula lipa"
     NumberToKune.convert(200).should == "dvjesto kuna i nula lipa"
     NumberToKune.convert(200.26).should == "dvjesto kuna i dvadesetšest lipa"
-    NumberToKune.convert(1_200.26).should == "tisućudvjesto kuna i dvadesetšest lipa"
     NumberToKune.convert(10).should == "deset kuna i nula lipa"
     NumberToKune.convert(3).should == "tri kune i nula lipa"
     NumberToKune.convert(18).should == "osamnaest kuna i nula lipa"
     NumberToKune.convert(24).should == "dvadesetčetiri kune i nula lipa"
     NumberToKune.convert(27).should == "dvadesetsedam kuna i nula lipa"
+    NumberToKune.convert(22).should == "dvadesetdvije kune i nula lipa"
+    NumberToKune.convert(0.00).should == "nula kuna i nula lipa"
+  end
+
+  it 'converts to kunas over 1000' do
+    NumberToKune.convert(1_200.26).should == "tisućudvjesto kuna i dvadesetšest lipa"
     NumberToKune.convert(1000).should == "tisuću kuna i nula lipa"
     NumberToKune.convert(101_000).should == "stojednutisuću kuna i nula lipa"
     NumberToKune.convert(1965).should == "tisućudevetstošezdesetpet kuna i nula lipa"
@@ -33,10 +38,14 @@ describe NumberToKune do
     NumberToKune.convert(926_543_864).should == "devetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
     NumberToKune.convert(19_926_543_864).should == "devetnaestmilijardidevetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
     NumberToKune.convert(121_926_543_864).should == "stodvadesetjednamilijardadevetstodvadesetšestmilijunapetstočetrdesettritisućeosamstošezdesetčetiri kune i nula lipa"
-    NumberToKune.convert(22).should == "dvadesetdvije kune i nula lipa"
     NumberToKune.convert(22_000_000).should == "dvadesetdvamilijuna kuna i nula lipa"
-    NumberToKune.convert(0.00).should == "nula kuna i nula lipa"
     NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadesetjedna lipa"
+  end
+
+  it 'reports on a too big number of a number' do
+    lambda do
+        NumberToKune.convert(10000000000000)
+    end.should raise_error 'Nisu podrzani iznosi preko bilijun, a poslan je iznos 10000000000000'
   end
 
 end
