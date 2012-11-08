@@ -68,45 +68,36 @@ class NumberToKune
   private
 
   def translate_to_words(amount, in_words, unit = nil)
-    return in_words if amount.nil? || amount.size == 0 ||  amount.gsub("0","").size == 0
+    return in_words if amount.nil? || amount.size == 0 || amount.gsub("0","").size == 0
+    raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}" if amount.to_i >= 1_000_000_000_000
 
     amount = amount.to_i.to_s
-    if amount.to_i < 1000
-      if amount.to_i < 1_000
-        if as_word(amount, unit) != nil
-          in_words += as_word(amount, unit)
-          decoded = amount.size
-        else
-          in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
-          decoded = 1
-        end
-        translate_to_words(take_off(amount, decoded), in_words, unit)
-      end
-    elsif amount.to_i < 1_000_000
-      decompose(amount, :tisuca, in_words)
-    elsif amount.to_i < 1_000_000_000
-      decompose(amount, :milijun, in_words)
-    elsif amount.to_i < 1_000_000_000_000
-      decompose(amount, :milijarda, in_words)
+    if amount.to_i >= 1000
+      unit = KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key}.reverse[0]
+      decompose(amount, unit, in_words)
     else
-      raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}"
+      if as_word(amount, unit) != nil
+        in_words += as_word(amount, unit)
+        translate_to_words(remove_first_n(amount, amount.size), in_words, unit)
+      else
+        in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
+        translate_to_words(remove_first_n(amount, amount[0].size), in_words, unit)
+      end
     end
   end
 
   def as_word(amount, unit = nil)
-    (!unit.nil? &&  !WORDS["#{amount}_#{unit}"].nil?) ?  WORDS["#{amount}_#{unit}"] : WORDS[amount]
+   (!unit.nil? &&  !WORDS["#{amount}_#{unit}"].nil?) ?  WORDS["#{amount}_#{unit}"] : WORDS[amount]
   end
 
-  def take_off(source, number_to_take_off = 1)
-    result = source.reverse
-    (0...number_to_take_off).each { result.chop! }
-    result.reverse
+  def remove_first_n(source, n = 1)
+    source[n..-1]
   end
 
   def decompose(amount, unit, in_words)
-    bez = (amount.to_i / KOEFS.fetch(unit)).to_s
-    in_words += translate_to_words(bez.to_s, '', unit) unless bez == "1"
-    in_words += AmountInflector.inflect_unit(bez.to_i, unit)
-    translate_to_words(amount[bez.size..amount.size - 1], in_words, unit)
+    without_unit = (amount.to_i / KOEFS.fetch(unit)).to_s
+    in_words += translate_to_words(without_unit.to_s, '', unit) unless without_unit == "1"
+    in_words += AmountInflector.inflect_unit(without_unit.to_i, unit)
+    translate_to_words(remove_first_n(amount, without_unit.size), in_words, unit)
   end
 end
