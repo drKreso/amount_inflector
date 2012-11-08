@@ -65,29 +65,25 @@ class NumberToKune
     result += " i #{translate_to_words(after_decimal.to_s, '')} #{AmountInflector.inflect_unit(after_decimal.to_i, :lipa)}"
   end
 
-  private
-
   def translate_to_words(amount, in_words, unit = nil)
     return in_words if amount.nil? || amount.size == 0 || amount.gsub("0","").size == 0
     raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}" if amount.to_i >= 1_000_000_000_000
 
     amount = amount.to_i.to_s
     if amount.to_i >= 1000
-      unit = KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key}.reverse[0]
+      unit = KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key }.reverse[0]
       decompose(amount, unit, in_words)
+    elsif as_word(amount, unit) != nil
+      in_words += as_word(amount, unit)
+      translate_to_words(remove_first_n(amount, amount.size), in_words, unit)
     else
-      if as_word(amount, unit) != nil
-        in_words += as_word(amount, unit)
-        translate_to_words(remove_first_n(amount, amount.size), in_words, unit)
-      else
-        in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
-        translate_to_words(remove_first_n(amount, amount[0].size), in_words, unit)
-      end
+      in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
+      translate_to_words(remove_first_n(amount, amount[0].size), in_words, unit)
     end
   end
 
   def as_word(amount, unit = nil)
-   (!unit.nil? &&  !WORDS["#{amount}_#{unit}"].nil?) ?  WORDS["#{amount}_#{unit}"] : WORDS[amount]
+    WORDS["#{amount}_#{unit.nil? ? '' : unit}"] || WORDS[amount]
   end
 
   def remove_first_n(source, n = 1)
