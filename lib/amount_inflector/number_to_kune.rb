@@ -78,7 +78,7 @@ class NumberToKune
       translate_to_words(remove_first_n(amount, amount.size), in_words, unit)
     else
       in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
-      translate_to_words(remove_first_n(amount, amount[0].size), in_words, unit)
+      translate_to_words(remove_first_n(amount), in_words, unit)
     end
   end
 
