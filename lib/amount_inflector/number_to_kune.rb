@@ -73,13 +73,22 @@ class NumberToKune
     if amount.to_i >= 1000
       unit = KOEFS.select { |key,value| amount.to_i >= value }.map { |key,value| key }.reverse[0]
       decompose(amount, unit, in_words)
-    elsif as_word(amount, unit) != nil
-      in_words += as_word(amount, unit)
-      translate_to_words(remove_first_n(amount, amount.size), in_words, unit)
     else
-      in_words += as_word(amount[0] +  "0" * (amount.size - 1), unit)
-      translate_to_words(remove_first_n(amount), in_words, unit)
+      in_words += replaced_word(amount, unit)
+      translate_to_words(remove_first_n(amount, replaced_size(amount, unit)), in_words, unit)
     end
+  end
+
+  def replaced_word(amount, unit)
+    as_word(amount, unit) || as_word(zeroed(amount), unit)
+  end
+
+  def replaced_size(amount, unit)
+    as_word(amount, unit).nil? ? 1 : amount.size
+  end
+
+  def zeroed(amount)
+    amount[0] +  "0" * (amount.size - 1)
   end
 
   def as_word(amount, unit = nil)
