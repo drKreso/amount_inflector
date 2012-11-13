@@ -29,7 +29,7 @@ bundle
 
 Release notes
 -------------
-v.3.0.1
+v.3.0.2
   - added support for inflection :promet
 
 Contributing to amount_inflector

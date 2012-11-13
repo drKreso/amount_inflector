@@ -10,7 +10,7 @@ class AmountInflector
      :lipa =>   { one:"lipa",   few:"lipe",    many:"lipa" },
      :tisuca => { one:"tisuću", few:"tisuće",  many:"tisuća" },
      :milijun => { one:"milijun", few:"milijuna",  many:"milijuna" },
-     :milijarda => { one:"milijarda", few:"milijarde",  many:"milijardi" }
+     :milijarda => { one:"milijarda", few:"milijarde",  many:"milijardi" },
      :promet => { one:"promet", few:"prometa",  many:"prometa" }
   }
 
