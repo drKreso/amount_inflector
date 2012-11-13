@@ -27,6 +27,11 @@ And then:
 bundle
 ```
 
+Release notes
+-------------
+v.3.0.1
+  - added support for inflection :promet
+
 Contributing to amount_inflector
 ---------------------------------
 

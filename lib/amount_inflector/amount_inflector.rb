@@ -11,6 +11,7 @@ class AmountInflector
      :tisuca => { one:"tisuću", few:"tisuće",  many:"tisuća" },
      :milijun => { one:"milijun", few:"milijuna",  many:"milijuna" },
      :milijarda => { one:"milijarda", few:"milijarde",  many:"milijardi" }
+     :promet => { one:"promet", few:"prometa",  many:"prometa" }
   }
 
   def self.inflect(amount, unit)
