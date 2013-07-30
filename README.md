@@ -31,6 +31,8 @@ Release notes
 -------------
 v.3.0.2
   - added support for inflection :promet
+v.3.0.3
+  - Fixed strange bug, but lost fine tuning for 101_000 amount
 
 Contributing to amount_inflector
 ---------------------------------

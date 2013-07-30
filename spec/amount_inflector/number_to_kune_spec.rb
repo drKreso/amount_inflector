@@ -42,6 +42,10 @@ describe NumberToKune do
     NumberToKune.convert(97_543.21).should == "devedesetsedamtisućapetstočetrdesettri kune i dvadesetjedna lipa"
   end
 
+  it 'converts this amount correctly' do
+   NumberToKune.convert(34_551.25).should == "tridesetčetiritisućepetstopedesetjedna kuna i dvadesetpet lipa"
+  end
+
   it 'reports on a too big number of a number' do
     lambda do
         NumberToKune.convert(10000000000000)

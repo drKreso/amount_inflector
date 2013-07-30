@@ -70,6 +70,9 @@ class NumberToKune
     return '' if amount == "1" && !unit.nil?
     raise "Nisu podrzani iznosi preko bilijun, a poslan je iznos #{amount}" if amount.to_i >= 1_000_000_000_000
 
+    #degrade thousand
+    unit = nil if unit == :tisuca and amount.to_i < 1000
+
     amount = amount.to_i.to_s
     if amount.to_i >= 1000
       decompose(amount, in_words)
